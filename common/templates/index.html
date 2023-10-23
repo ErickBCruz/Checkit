@@ -1,22 +1,24 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio</title>
-</head>
-<body>
-    {% block nav %} {% include "partials/_nav.html" %} {% endblock nav %} 
-      {% block content %}
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>Inicio</h1>
-                    <p>Esta es la pagina de inicio</p>
-                </div>
-            </div>
+  </head>
+  <body>
+    {% block nav %} {% include "partials/_nav.html" %} {% endblock nav %}
+    {%block content %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Inicio</h1>
+          <p>Esta es la pagina de inicio</p>
+          {{map | safe}} 
+        </div>
+      </div>
+      
       {% endblock %}
     </div>
-    </body>
+  </body>
 </html>
