@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
     <title>CheckIt</title>
 </head>
 <body>
+    {% block nav %} {% include "partials/_nav.html" %} {% endblock nav %} 
     {% block content %}
     {% endblock %}
 </body>
