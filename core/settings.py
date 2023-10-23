@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # Created
     "users",
     "common",
+    "dashboard",
     # default
     "django.contrib.admin",
     "django.contrib.auth",
