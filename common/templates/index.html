@@ -9,11 +9,9 @@
   <body>
     {% block nav %} {% include "partials/_nav.html" %} {% endblock nav %}
     {%block content %}
-    <div class="container">
+    <div class="container p-4">
       <div class="row">
         <div class="col-md-12">
-          <h1>Inicio</h1>
-          <p>Esta es la pagina de inicio</p>
           {{map | safe}} 
         </div>
       </div>

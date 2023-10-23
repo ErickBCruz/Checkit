@@ -19,7 +19,8 @@
 
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
-                  <form>
+                  <form method="POST">
+                    {% csrf_token %}
                     <div class="d-flex align-items-center mb-3 pb-1">
                       <span class="h1 fw-bold mb-0">
                         <img
@@ -31,20 +32,22 @@
 
                     <div class="form-outline mb-4">
                       <input
-                        type="email"
-                        id="form2Example17"
+                        type="text"
+                        id="username"
+                        name="username"
                         class="form-control form-control-lg"
                         required
                       />
                       <label class="form-label" for="form2Example17"
-                        >Correo electrónico</label
+                        >Nombre de usuario</label
                       >
                     </div>
 
                     <div class="form-outline mb-4">
                       <input
                         type="password"
-                        id="form2Example27"
+                        id="password"
+                        name="password"
                         class="form-control form-control-lg"
                         required
                       />
