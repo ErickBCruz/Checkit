@@ -1,8 +1,8 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-light bg-white p-3">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="{% static 'images/checkit-logo.png' %}" alt="" width="120" />
+    <a class="navbar-brand">
+      <img src="{% static 'images/checkit-logo.png' %}" alt="checkit-logo" width="120" />
     </a>
     <button
       class="navbar-toggler"
@@ -31,7 +31,7 @@
         </li>
       </ul>
       <div class="">
-        <a type="button" class="btn btn-outline-primary">Ingresar</a>
+        <a href="{% url 'login' %}"  type="button" class="btn btn-outline-primary">Ingresar</a>
       </div>
     </div>
   </div>
