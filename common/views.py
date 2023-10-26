@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
+from django.contrib import messages
 import folium
 
 
@@ -7,6 +8,9 @@ def index(request):
     m = folium.Map(location=[4.142, -73.62664], zoom_start=13)
     context = {"map": m._repr_html_()}
     return render(request, "index.html", context)
+
+def pricing_view(request):
+    return render(request, "pricing.html")
 
 
 def login_view(request):
@@ -20,5 +24,9 @@ def login_view(request):
             login(request, user)
             return redirect("dashboard-home")
         else:
-            print("Error")
+            messages.error(request, "Nombre de usuario o contraseña incorrectos")
     return render(request, "login.html")
+
+
+def register_options_view(request):
+    return render(request, "register-options.html")

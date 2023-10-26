@@ -1,7 +1,7 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-light bg-white p-3">
   <div class="container-fluid">
-    <a class="navbar-brand">
+    <a class="navbar-brand" href={% url "index" %}>
       <img src="{% static 'images/checkit-logo.png' %}" alt="checkit-logo" width="120" />
     </a>
     <button
@@ -21,10 +21,7 @@
     >
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Precios</a>
+          <a class="nav-link" href="{% url "pricing" %}">Precios</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Ayuda</a>
