@@ -3,4 +3,8 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/login')
 def dashboard_home_view(request):
-    return render(request, "dashboard-home.html")
+    user = request.user
+    context = {
+        "user": user
+    }
+    return render(request, "dashboard-home.html", context)
