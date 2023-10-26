@@ -1,11 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
+from users.models import Enterprise
 import folium
 
 
 def index(request):
     m = folium.Map(location=[4.142, -73.62664], zoom_start=13)
+    enterprises = Enterprise.objects.all()
+    
+    for enterprise in enterprises:
+        folium.Marker(
+            location=[enterprise.latitude, enterprise.longitude],
+            popup=enterprise.enterprise_name,
+            icon=folium.Icon(color="green"),
+        ).add_to(m)
+    
     context = {"map": m._repr_html_()}
     return render(request, "index.html", context)
 

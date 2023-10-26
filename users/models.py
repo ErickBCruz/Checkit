@@ -50,6 +50,12 @@ class BaseEntity(models.Model):
 
 
 class Enterprise(BaseEntity):
+    enterprise_name = models.CharField(
+        max_length=100,
+        verbose_name="Nombre de la empresa",
+        default="Sin registrar",
+        unique=True
+    )
     nit = models.CharField(
         max_length=100,
         verbose_name="NIT de la entidad",
@@ -60,8 +66,10 @@ class Enterprise(BaseEntity):
     )
     foundation_date = models.DateField(
         verbose_name="Fecha de fundación",
-    )
-
+    )    
+    
+    def __str__(self):
+        return f"Empresa {self.enterprise_name}"
     class Meta:
         db_table = "enterprise"
         verbose_name = "Empresa"
