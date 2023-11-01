@@ -1,0 +1,86 @@
+{% extends "base.html" %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %} CheckIT | Registro Empresa {% endblock title %}
+    </title>
+  </head>
+
+  <body>
+    {% block nav %} {% include "partials/_nav.html" %} {% endblock nav %} 
+    {% block content %}
+    <div class="container pt-3 form-container pb-3 w-50">
+      <form method="post" enctype="multipart/form-data", action="">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+          {{ form.enterprise_name.label_tag }} {{ form.enterprise_name }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.nit.label_tag }} {{ form.nit }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.slogan.label_tag }} {{ form.slogan }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.type.label_tag }} {{ form.type }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.address.label_tag }} {{ form.address }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.phone.label_tag }} {{ form.phone }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.first_name.label_tag }} {{ form.first_name }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.last_name.label_tag }} {{ form.last_name }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.foundation_date.label_tag }} {{ form.foundation_date }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.profile_image.label_tag }} {{ form.profile_image }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.username.label_tag }} {{ form.username }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.latitude.label_tag }} {{ form.latitude }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.longitude.label_tag }} {{ form.longitude }}
+        </div>
+        <div class="alert alert-info" role="alert">
+          Es necesario que habilite la ubicación para que su empresa pueda ser
+          encontrada por los usuarios.  
+        </div>
+        <div class="form-group mb-3">
+          {{ form.password.label_tag }} {{ form.password }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.password2.label_tag }} {{ form.password2 }}
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+      </form>
+    </div>
+    <script>
+      navigator.geolocation.getCurrentPosition(function (position) {
+        document.getElementById("id_latitude").value = position.coords.latitude;
+        document.getElementById("id_longitude").value =
+          position.coords.longitude;
+      });
+    </script>
+
+    <style>
+      #id_latitude,
+      #id_longitude {
+        cursor: not-allowed;
+      }
+    </style>
+    {% endblock content %}
+  </body>
+</html>
