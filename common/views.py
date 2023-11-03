@@ -4,7 +4,7 @@ from django.contrib import messages
 from users.forms.enterprises.create_enterprise_form import EnterpriseRegisterForm
 from users.utils.enterprise_facade import EnterpriseFacade
 
-from .services import CommonService
+from common.services.common_service import CommonService
 from users.services.enterprise_service import EnterpriseService
 
 import folium
