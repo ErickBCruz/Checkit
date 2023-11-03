@@ -8,6 +8,11 @@ def dashboard_home_view(request):
     context = {"user": user}
     return render(request, "dashboard-home.html", context)
 
+@login_required(login_url="/login")
+def profile_view(request):
+    user = request.user
+    context = {"user": user}
+    return render(request, "dashboard-profile.html", context)
 
 @login_required
 def logout_view(request):
