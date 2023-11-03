@@ -1,22 +1,23 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
-from users.forms import EnterpriseRegisterForm
+from users.forms.enterprises.create_enterprise_form import EnterpriseRegisterForm
 from users.utils.enterprise_facade import EnterpriseFacade
 
 from .services import CommonService
+from users.services.enterprise_service import EnterpriseService
 
 import folium
 
 
 common_service = CommonService()
+enterprise_service = EnterpriseService()
 default_latitude = common_service.default_latitude
 default_longitude = common_service.default_longitude
 
 
 def index(request):
     m = folium.Map(location=[default_latitude, default_longitude], zoom_start=13)
-    
 
     current_latitude, current_longitude = common_service.get_current_position(request)
 
@@ -41,9 +42,13 @@ def index(request):
         fill_color="#3186cc",
     ).add_to(m)
 
-    enterprise_facade = EnterpriseFacade(common_service)
-    
-    enterprises, near_ent_count, near_techn_count = enterprise_facade.get_nearby_enterprises(
+    enterprise_facade = EnterpriseFacade(common_service, enterprise_service)
+
+    (
+        enterprises,
+        near_ent_count,
+        near_techn_count,
+    ) = enterprise_facade.get_nearby_enterprises(
         lat=current_latitude,
         lng=current_longitude,
         target=distance,
@@ -62,10 +67,16 @@ def index(request):
 
             enterprise_type = "Empresa" if enterprise.type == "1" else "Técnico"
 
+            tooltip = f""" <strong>{enterprise_type}: {name}</strong> <br>
+            {enterprise.address}
+            """
+
             folium.Marker(
                 location=[latitude, longitude],
                 tooltip=folium.Tooltip(
-                    f"{enterprise_type}: {name}", style="font-size: 7px;", sticky=True
+                    tooltip,
+                    style="font-size: 7px;",
+                    sticky=True,
                 ),
                 icon=custom_marker,
             ).add_to(m)
@@ -74,7 +85,7 @@ def index(request):
         "map": m._repr_html_(),
         "distance": int(distance / 1000),
         "near_enterprises_count": near_ent_count,
-        "near_technicians_count": near_techn_count
+        "near_technicians_count": near_techn_count,
     }
     return render(request, "index.html", context)
 

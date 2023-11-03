@@ -1,18 +1,14 @@
-from users.models import Enterprise
+from users.services.enterprise_service import EnterpriseService
 from math import sin, cos, sqrt, asin, pi
-from functools import reduce
 import json
-
 
 class CommonService:
     default_latitude = 4.14986
     default_longitude = -73.63647
+    enterprise_service = EnterpriseService()
 
     def __init__(self):
         print("CommonService init... 🚀")
-
-    def get_enterprises(self):
-        return Enterprise.objects.all()
 
     def get_normalized_profile_image(self, profile_image) -> str:
         split_profile_image = profile_image.split("/")

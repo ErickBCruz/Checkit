@@ -1,9 +1,10 @@
 class EnterpriseFacade:
-    def __init__(self, common_service):
+    def __init__(self, common_service, enterprise_service):
         self.common_service = common_service
+        self.enterprise_service = enterprise_service
 
     def get_nearby_enterprises(self, lat, lng, target=1000):
-        all_enterprises = self.common_service.get_enterprises()
+        all_enterprises = self.enterprise_service.get_enterprises()
         near_enterprises = []
 
         for enterprise in all_enterprises:

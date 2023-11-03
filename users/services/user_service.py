@@ -1,5 +1,5 @@
 from django.contrib.auth.hashers import make_password
-from .models import User
+from users.models import User
 
 
 class UserService:

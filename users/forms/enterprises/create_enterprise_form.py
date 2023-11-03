@@ -1,10 +1,8 @@
 from django import forms
-from django.contrib.auth.hashers import make_password
-from .models import Enterprise, User
-from .services import UserService
+from ...models import Enterprise
+from ...services.user_service import UserService
 
 userService = UserService()
-
 
 class EnterpriseRegisterForm(forms.ModelForm):
     class Meta:
