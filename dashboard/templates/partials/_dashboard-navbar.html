@@ -6,7 +6,7 @@
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
       >
         <a
-          href="/"
+          href="{% url "dashboard-home" %}"
           class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none"
         >
           <img
@@ -55,7 +55,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="nav-link text-dark">
+            <a href="{% url "dashboard-repair-enterprises" %}" class="nav-link text-dark">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"
