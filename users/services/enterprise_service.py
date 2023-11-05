@@ -6,3 +6,10 @@ class EnterpriseService():
         
     def get_enterprises(self):
         return Enterprise.objects.all()
+    
+    def get_enterprise_by_user(user):
+        return Enterprise.objects.get(user=user)
+    
+    def is_enterprise(self, user):
+        enterprise = Enterprise.objects.filter(user=user).exists()
+        return enterprise

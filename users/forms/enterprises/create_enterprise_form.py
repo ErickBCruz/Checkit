@@ -183,10 +183,10 @@ class EnterpriseRegisterForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(EnterpriseRegisterForm, self).clean()
-        password = cleaned_data.get("password")
-        password2 = cleaned_data.get("password2")
-        if password != password2:
-            raise forms.ValidationError("Las contraseñas no coinciden")
+        # password = cleaned_data.get("password")
+        # password2 = cleaned_data.get("password2")
+        # if password != password2:
+        #     raise forms.ValidationError("Las contraseñas no coinciden")
         return cleaned_data
 
     def __init__(self, *args, **kwargs):
