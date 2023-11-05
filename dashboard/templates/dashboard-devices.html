@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %} {% include "./partials/_dashboard-navbar.html" %}
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %} {% include "./partials/_dashboard-navbar.html" %}
 <section class="h-100 gradient-custom-2 container mt-5">
   <h4 class="my-2">Listado de dispositivos</h4>
   <table class="table table-striped">
@@ -32,7 +34,7 @@
         <td>
             <p class="m-0 ms-2">{{ device.brand.name }}</p>
         </td>
-        <td>{{ device.created_at }}</td>
+        <td>{{ device.created_at|naturaltime  }}</td>
         <td>
           <div class="btn-group w-25" role="group" aria-label="Basic example">
             <a class="btn btn-primary"> <i class="fas fa-edit"></i></a>
