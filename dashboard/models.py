@@ -36,7 +36,7 @@ class Device(models.Model):
     updated_at = models.DateTimeField(
         default=None, null=True, blank=True, verbose_name="Actualizado el"
     )
-    owener = models.ForeignKey(
+    owner = models.ForeignKey(
         Client, on_delete=models.CASCADE, blank=False, verbose_name="Dueño"
     )
     brand = models.ForeignKey(
