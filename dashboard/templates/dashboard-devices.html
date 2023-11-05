@@ -11,12 +11,13 @@
         <th scope="col">Dispositivo</th>
         <th scope="col">Categoría</th>
         <th scope="col">Marca</th>
+        <th scope="col">Fecha de adquisición</th>
         <th scope="col">Fecha Registro</th>
         <th scope="col">Acción</th>
       </tr>
     </thead>
     {% if devices|length > 0 %}
-    <tbody>
+    <tbody class="align-middle">
       {% for device in devices %}
       <tr>
         <th scope="row">{{ device.id }}</th>
@@ -33,6 +34,13 @@
         <td>{{ device.category }}</td>
         <td>
             <p class="m-0 ms-2">{{ device.brand.name }}</p>
+        </td>
+        <td>
+          {% if device.adquisition_date %}
+            {{ device.adquisition_date|date:"d-m-Y" }}
+            {% else %}
+            No especificado
+          {% endif %}
         </td>
         <td>{{ device.created_at|naturaltime  }}</td>
         <td>
