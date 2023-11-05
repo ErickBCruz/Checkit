@@ -8,8 +8,8 @@ class User(AbstractUser):
         blank=True,
         null=True,
         verbose_name="Imagen de perfil",
-    ) 
-    
+    )
+
     class Meta:
         db_table = "user"
         verbose_name = "Usuario"
@@ -97,6 +97,9 @@ class Client(BaseEntity):
     birthday = models.DateField(
         verbose_name="Fecha de nacimiento",
     )
+
+    def __str__(self):
+        return f"{self.user.username}"
 
     class Meta:
         db_table = "client"
