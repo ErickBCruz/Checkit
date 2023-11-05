@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 from users.forms.enterprises.create_enterprise_form import EnterpriseRegisterForm
+from users.forms.clients.create_client_form import ClientRegisterForm
 from users.utils.enterprise_facade import EnterpriseFacade
 
 from common.services.common_service import CommonService
@@ -110,6 +111,8 @@ def login_view(request):
 
 
 def register_enterprise_view(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard-home")
     if request.method == "POST":
         form = EnterpriseRegisterForm(request.POST, request.FILES)
         if form.is_valid():
@@ -119,3 +122,19 @@ def register_enterprise_view(request):
     else:
         form = EnterpriseRegisterForm()
     return render(request, "register-enterprise.html", {"form": form})
+
+
+def register_client_view(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard-home")
+    if request.method == "POST":
+        form = ClientRegisterForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Cliente registrado correctamente")
+            return redirect("login")
+        else:
+            messages.error(request, form.errors)
+    else:
+        form = ClientRegisterForm()
+    return render(request, "register-client.html", {"form": form})
