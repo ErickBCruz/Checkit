@@ -51,6 +51,9 @@ class Device(models.Model):
         blank=True,
         verbose_name="Imagen del dispositivo",
     )
+    adquisition_date = models.DateField(
+        null=True, blank=True, verbose_name="Fecha de adquisición"
+    )
     
     def __str__(self):
         return f"{self.name} - {self.owner}"
