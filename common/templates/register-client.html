@@ -10,23 +10,25 @@
   </head>
 
   <body>
-    {% block nav %} {% include "partials/_nav.html" %} {% endblock nav %} 
-    {% block content %}
-    <h1 class="text-center my-5">Registro Empresa</h1>
+    {% block nav %} {% include "partials/_nav.html" %} {% endblock nav %} {% block content %}
     <div class="container pt-3 form-container pb-3 w-50">
-      <form method="post" enctype="multipart/form-data", action="">
+      <h1 class="text-center my-5">Registro Cliente</h1>
+      <form method="post" enctype="multipart/form-data" , action="">
         {% csrf_token %}
         <div class="form-group mb-3">
-          {{ form.enterprise_name.label_tag }} {{ form.enterprise_name }}
+          {{ form.first_name.label_tag }} {{ form.first_name }}
         </div>
         <div class="form-group mb-3">
-          {{ form.nit.label_tag }} {{ form.nit }}
+          {{ form.last_name.label_tag }} {{ form.last_name }}
         </div>
         <div class="form-group mb-3">
-          {{ form.slogan.label_tag }} {{ form.slogan }}
+          {{ form.document.label_tag }} {{ form.document }}
         </div>
         <div class="form-group mb-3">
-          {{ form.type.label_tag }} {{ form.type }}
+          {{ form.email.label_tag }} {{ form.email }}
+        </div>
+        <div class="form-group mb-3">
+          {{ form.birthday.label_tag }} {{ form.birthday }}
         </div>
         <div class="form-group mb-3">
           {{ form.address.label_tag }} {{ form.address }}
@@ -35,19 +37,7 @@
           {{ form.phone.label_tag }} {{ form.phone }}
         </div>
         <div class="form-group mb-3">
-          {{ form.first_name.label_tag }} {{ form.first_name }}
-        </div>
-        <div class="form-group mb-3">
-          {{ form.last_name.label_tag }} {{ form.last_name }}
-        </div>
-        <div class="form-group mb-3">
-          {{ form.foundation_date.label_tag }} {{ form.foundation_date }}
-        </div>
-        <div class="form-group mb-3">
           {{ form.profile_image.label_tag }} {{ form.profile_image }}
-        </div>
-        <div class="form-group mb-3">
-          {{ form.username.label_tag }} {{ form.username }}
         </div>
         <div class="form-group mb-3">
           {{ form.latitude.label_tag }} {{ form.latitude }}
@@ -56,8 +46,11 @@
           {{ form.longitude.label_tag }} {{ form.longitude }}
         </div>
         <div class="alert alert-info" role="alert">
-          Es necesario que habilite la ubicación para que su empresa pueda ser
-          encontrada por los usuarios.  
+          Es necesario que habilite la ubicación para que podamos encontrar
+          empresas cerca de usted.
+        </div>
+        <div class="form-group mb-3">
+          {{ form.username.label_tag }} {{ form.username }}
         </div>
         <div class="form-group mb-3">
           {{ form.password.label_tag }} {{ form.password }}
@@ -65,6 +58,7 @@
         <div class="form-group mb-3">
           {{ form.password2.label_tag }} {{ form.password2 }}
         </div>
+        {{ form.errors }}
         <button type="submit" class="btn btn-primary">Registrar</button>
       </form>
     </div>
