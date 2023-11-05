@@ -13,6 +13,9 @@ class DeviceBrand(models.Model):
         verbose_name="Icono de la marca",
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Creado el")
+    
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = "Marca de dispositivo"
@@ -48,6 +51,9 @@ class Device(models.Model):
         blank=True,
         verbose_name="Imagen del dispositivo",
     )
+    
+    def __str__(self):
+        return f"{self.name} - {self.owner}"
 
     class Meta:
         verbose_name = "Dispositivo"

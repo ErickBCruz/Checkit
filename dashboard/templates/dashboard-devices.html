@@ -1,6 +1,80 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %} {% include "./partials/_dashboard-navbar.html" %}
+<section class="h-100 gradient-custom-2 container mt-5">
+  <h4 class="my-2">Listado de dispositivos</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Imagen</th>
+        <th scope="col">Dispositivo</th>
+        <th scope="col">Categoría</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Fecha Registro</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    {% if devices|length > 0 %}
+    <tbody>
+      {% for device in devices %}
+      <tr>
+        <th scope="row">{{ device.id }}</th>
+        <td>
+          <img
+            class="rounded-3"
+            src="{{ device.picture.url }}"
+            alt="{{ device.name }}"
+            width="100"
+            draggable="false"
+          />
+        </td>
+        <td>{{ device.name }}</td>
+        <td>{{ device.category }}</td>
+        <td>
+            <p class="m-0 ms-2">{{ device.brand.name }}</p>
+        </td>
+        <td>{{ device.created_at }}</td>
+        <td>
+          <div class="btn-group w-25" role="group" aria-label="Basic example">
+            <a class="btn btn-primary"> <i class="fas fa-edit"></i></a>
+            <a class="btn btn-danger"> <i class="fas fa-remove"></i></a>
+            <a class="btn btn-success"> <i class="fas fa-eye"></i></a>
+          </div>
+        </td>
+      </tr>
 
-{% block content %}
-    {% include "./partials/_dashboard-navbar.html" %}
-    <h1>Dispositivos</h1>
+      {% endfor %}
+    </tbody>
+    {% else %}
+    <tbody>
+      <tr>
+        <td colspan="4">No hay dispositivos registrados</td>
+      </tr>
+    </tbody>
+    {% endif %}
+  </table>
+  <div class="pagination w-100 rounded-3 p-2">
+    <span class="step-links">
+        {% if devices.has_previous %}
+            <a class="m-lg-3" href="?page={{ devices.previous_page_number }}"><i class="bi bi-chevron-left"></i> Anterior</a>
+        {% endif %}
+
+        <span class="current">
+            Página {{ devices.number }} de {{ devices.paginator.num_pages }}.
+        </span>
+
+        {% if devices.has_next %}
+            <a class="m-lg-3" href="?page={{ devices.next_page_number }}">Siguiente <i class="bi bi-chevron-right"></i></a>
+        {% endif %}
+    </span>
+</div>
+</section>
+
+<style>
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+
 {% endblock %}

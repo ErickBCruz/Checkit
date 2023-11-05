@@ -7,7 +7,7 @@ class EnterpriseService():
     def get_enterprises(self):
         return Enterprise.objects.all()
     
-    def get_enterprise_by_user(user):
+    def get_enterprise_by_user(self, user):
         return Enterprise.objects.get(user=user)
     
     def is_enterprise(self, user):
