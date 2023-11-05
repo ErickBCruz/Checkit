@@ -1,7 +1,13 @@
 from django.urls import path
-from . import views
+from .views import (
+    dashboard_common_views,
+    dashboard_devices_views,
+    dashboard_profile_views,
+)
 
 urlpatterns = [
-    path("home", views.dashboard_home_view, name="dashboard-home"),
-    path("profile", views.profile_view, name="dashboard-profile"),
+    path("home", dashboard_common_views.dashboard_home_view, name="dashboard-home"),
+    path("logout", dashboard_common_views.logout_view, name="dashboard-logout"),
+    path("profile", dashboard_profile_views.profile_view, name="dashboard-profile"),
+    path("devices", dashboard_devices_views.devices_view, name="dashboard-devices"),
 ]
