@@ -2,5 +2,15 @@
 
 {% block content %}
     {% include "./partials/_dashboard-navbar.html" %}
-    <h1>Empresa de reparación</h1>
+
+    <div class="container container-fluid my-4">
+        <h4>Empresa de reparación cerca de mi</h4>
+        <div class"d-flex flex-row justify-content-center">
+            <div class="d-flex flex-col mt-2">
+                <div class="col-md-12">{{map | safe}}</div>
+              </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
