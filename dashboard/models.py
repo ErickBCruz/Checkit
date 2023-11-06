@@ -54,6 +54,9 @@ class Device(models.Model):
     adquisition_date = models.DateField(
         null=True, blank=True, verbose_name="Fecha de adquisición"
     )
+    status = models.BooleanField(
+        default=True, verbose_name="¿El dispositivo está activo?"
+    )
     
     def __str__(self):
         return f"{self.name} - {self.owner}"
