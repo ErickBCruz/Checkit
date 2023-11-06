@@ -128,11 +128,23 @@ def repair_enterprises_view(request):
     return render(request, "dashboard-repair-enterprises.html", context)
 
 
+@login_required(login_url="/login")
 def enterprise_detail_view(request, id):
     enterprise = enterprise_service.get_enterprise_by_id(id)
-
+    current_client = client_service.get_client(request.user)
+    is_followed = enterprise_service.is_follower(enterprise, current_client)
+    
+    if request.method == "POST" and not is_followed:
+        enterprise_service.add_follower(enterprise, current_client)
+        is_followed = True
+    
+    if request.method == "GET":
+        enterprise_service.increase_views(enterprise)
+                
     context = {
         "enterprise": enterprise,
+        "enterprise_followed": is_followed
     }
 
     return render(request, "enterprise-detail.html", context)
+

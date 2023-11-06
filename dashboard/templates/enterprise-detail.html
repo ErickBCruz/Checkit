@@ -2,6 +2,9 @@
 <div class="container container-fluid my-2">
   <h4 class="py-2">Información detallada de la Empresa</h4>
   <hr />
+  <button class="btn btn-primary my-4" onclick="window.history.back();">
+    <i class="fas fa-tools"></i> Reparar mi dispositivo en esta empresa
+  </button>
   <div class="container py-2">
     <div class="row">
       <div class="col-lg-4">
@@ -17,8 +20,20 @@
             <p class="text-muted mb-1 fs-italic">"{{enterprise.slogan}}"</p>
             <p class="text-muted mb-4">{{enterprise.address}}</p>
             <div class="d-flex justify-content-center mb-2">
-              <button type="button" class="btn btn-primary">Seguir</button>
-                <span class="mx-2"></span>
+              {% if enterprise_followed %}
+              <button type="button" class="btn btn-primary dsb" style="cursor: not-allowed;">
+                <i class="fas fa-plus"></i> Seguiendo
+              </button>
+              {% else %}
+              <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-plus"></i> Seguir
+                </button>
+              </form>
+              {% endif %}
+
+              <span class="mx-2"></span>
               <a
                 class="btn btn-success"
                 type="button"
@@ -76,7 +91,9 @@
                 <p class="mb-0">Representante legal</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">{{enterprise.user.first_name}} {{enterprise.user.last_name}}</p>
+                <p class="text-muted mb-0">
+                  {{enterprise.user.first_name}} {{enterprise.user.last_name}}
+                </p>
               </div>
             </div>
             <hr />
@@ -265,5 +282,13 @@
     </div>
   </div>
 </div>
+
+<style>
+  .dsb {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+</style>
 
 {% endblock %}
