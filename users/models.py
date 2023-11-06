@@ -87,27 +87,6 @@ class Enterprise(BaseEntity):
         db_table = "enterprise"
         verbose_name = "Empresa"
         verbose_name_plural = "Empresas"
-        
-        
-class EnterpiseFollowers(models.Model):
-    enterprise = models.ForeignKey(
-        Enterprise,
-        on_delete=models.CASCADE,
-        verbose_name="Empresa",
-    )
-    client = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        verbose_name="Cliente",
-    )
-
-    def __str__(self):
-        return f"Empresa {self.enterprise.enterprise_name} seguida por {self.client.username}"
-
-    class Meta:
-        db_table = "enterprise_followers"
-        verbose_name = "Seguidor de empresa"
-        verbose_name_plural = "Seguidores de empresa"
 
 
 class Client(BaseEntity):
@@ -126,3 +105,44 @@ class Client(BaseEntity):
         db_table = "client"
         verbose_name = "Cliente"
         verbose_name_plural = "Clientes"
+
+
+class EnterpiseFollowers(models.Model):
+    enterprise = models.ForeignKey(
+        Enterprise,
+        on_delete=models.CASCADE,
+        verbose_name="Empresa",
+    )
+    client = models.ForeignKey(
+        Client,
+        on_delete=models.CASCADE,
+        verbose_name="Cliente",
+    )
+
+    def __str__(self):
+        return f"Empresa {self.enterprise.enterprise_name} seguida por {self.client.user.first_name} {self.client.user.last_name}"
+
+    class Meta:
+        db_table = "enterprise_followers"
+        verbose_name = "Seguidor de empresa"
+        verbose_name_plural = "Seguidores de empresa"
+
+
+class EnterpriseViews(models.Model):
+    enterprise = models.ForeignKey(
+        Enterprise,
+        on_delete=models.CASCADE,
+        verbose_name="Empresa",
+    )
+    views = models.IntegerField(
+        verbose_name="Visitas",
+        default=0,
+    )
+
+    def __str__(self):
+        return f"Empresa {self.enterprise.enterprise_name} con {self.views} vistas"
+
+    class Meta:
+        db_table = "enterprise_views"
+        verbose_name = "Vistas de empresa"
+        verbose_name_plural = "Vistas de empresa"
