@@ -87,6 +87,27 @@ class Enterprise(BaseEntity):
         db_table = "enterprise"
         verbose_name = "Empresa"
         verbose_name_plural = "Empresas"
+        
+        
+class EnterpiseFollowers(models.Model):
+    enterprise = models.ForeignKey(
+        Enterprise,
+        on_delete=models.CASCADE,
+        verbose_name="Empresa",
+    )
+    client = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Cliente",
+    )
+
+    def __str__(self):
+        return f"Empresa {self.enterprise.enterprise_name} seguida por {self.client.username}"
+
+    class Meta:
+        db_table = "enterprise_followers"
+        verbose_name = "Seguidor de empresa"
+        verbose_name_plural = "Seguidores de empresa"
 
 
 class Client(BaseEntity):
