@@ -16,11 +16,14 @@
           <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          {{ device_form.as_p }}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ device_form.as_p }}
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -49,7 +52,7 @@
             class="rounded-3"
             src="{{ device.picture.url }}"
             alt="{{ device.name }}"
-            width="100"
+            width="90"
             draggable="false"
           />
         </td>

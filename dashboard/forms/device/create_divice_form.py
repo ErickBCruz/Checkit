@@ -1,4 +1,5 @@
 from dashboard.models import Device
+from dashboard.models import DeviceBrand
 from django import forms
 from dashboard.constants.device_constants import DEVICE_CATEGORIES
 
@@ -34,13 +35,7 @@ class CreateDeviceForm(forms.ModelForm):
                 "placeholder": "Serial",
             }
         ),
-    )
-
-    description = forms.CharField(
-        label="Descripción",
-        widget=forms.Textarea(
-            attrs={"class": "form-control", "placeholder": "Descripción", "rows": "2"}
-        ),
+        required=False
     )
 
     category = forms.ChoiceField(
@@ -53,14 +48,23 @@ class CreateDeviceForm(forms.ModelForm):
         ),
     )
 
-    brand = forms.CharField(
+    description = forms.CharField(
+        label="Descripción",
+        widget=forms.Textarea(
+            attrs={"class": "form-control", "placeholder": "Descripción", "rows": "2"}
+        ),
+        required=False
+    )
+
+    brand = forms.ModelChoiceField(
         label="Marca",
-        widget=forms.TextInput(
+        queryset=DeviceBrand.objects.all(),
+        widget=forms.Select(
             attrs={
                 "class": "form-control",
-                "placeholder": "Marca",
             }
         ),
+        required=False
     )
 
     picture = forms.ImageField(
@@ -81,4 +85,4 @@ class CreateDeviceForm(forms.ModelForm):
                 "type": "date", 
             }
         ),
-    )
+    ) 
