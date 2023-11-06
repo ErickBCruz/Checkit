@@ -5,17 +5,27 @@ import folium
 
 from common.services.common_service import CommonService
 from users.services.enterprise_service import EnterpriseService
+from users.services.client_service import ClientService
 
 common_service = CommonService()
 enterprise_service = EnterpriseService()
+client_service = ClientService()
 default_latitude = common_service.default_latitude
 default_longitude = common_service.default_longitude
+
 
 @login_required(login_url="/login")
 def repair_enterprises_view(request):
     m = folium.Map(location=[default_latitude, default_longitude], zoom_start=13)
 
-    current_latitude, current_longitude = common_service.get_current_position(request)
+    current_latitude = default_latitude
+    current_longitude = default_longitude
+
+    current_client = client_service.get_client(request.user)
+
+    if current_client.latitude and current_client.longitude:
+        current_latitude = current_client.latitude
+        current_longitude = current_client.longitude
 
     distance = request.GET.get("distance-range")
     distance = (int(distance) * 1000) if distance else 1000
@@ -67,6 +77,37 @@ def repair_enterprises_view(request):
             {enterprise.address}
             """
 
+            popup_content = f"""
+            <section>
+                <div class="container p-1 h-100">
+                    <div class="row h-100 justify-content-center align-items-center">
+                        <div class="col-12 text-center">
+                            <img src="{profile_image}" width="60px" class="img-fluid rounded-circle mx-auto" alt="Imagen de perfil">
+                        </div>
+                        <div class="col-12 text-center">
+                            <p class="fs-italic">"{enterprise.slogan}"</p>
+                        </div>
+                        <div class="col-12 text-center">
+                            <h5>{name}</h5>
+                            <p>{enterprise_type}</p>
+                            <p>{enterprise.address}</p>
+                            <p>{enterprise.phone}</p>
+                        </div>
+                        <div class="col-12 text-center">
+                            <a class="btn btn-info" type="button" href="/dashboard/enterprise/{enterprise.id}" target="_blank">
+                                <i class="fa-solid fa-eye" style="color: #ffffff;"></i>
+                            </a>
+
+                            <a class="btn btn-success" type="button" href="https://wa.me/{enterprise.phone}"
+                            target="_blank"
+                            >
+                                <i class="fa-brands fa-whatsapp" style="color: #ffffff;"></i>
+                            </a>
+                        </div>
+                </div>
+            </section>
+            """
+
             folium.Marker(
                 location=[latitude, longitude],
                 tooltip=folium.Tooltip(
@@ -74,6 +115,7 @@ def repair_enterprises_view(request):
                     style="font-size: 7px;",
                     sticky=True,
                 ),
+                popup=folium.Popup(popup_content, max_width=500),
                 icon=custom_marker,
             ).add_to(m)
 
@@ -85,3 +127,12 @@ def repair_enterprises_view(request):
     }
     return render(request, "dashboard-repair-enterprises.html", context)
 
+
+def enterprise_detail_view(request, id):
+    enterprise = enterprise_service.get_enterprise_by_id(id)
+
+    context = {
+        "enterprise": enterprise,
+    }
+
+    return render(request, "enterprise-detail.html", context)

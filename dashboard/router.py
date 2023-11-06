@@ -16,4 +16,9 @@ urlpatterns = [
         dashboard_repair_enterprises_views.repair_enterprises_view,
         name="dashboard-repair-enterprises",
     ),
+    path(
+        "enterprise/<int:id>",
+        dashboard_repair_enterprises_views.enterprise_detail_view,
+        name="dashboard-enterprise-detail",
+    ),
 ]
