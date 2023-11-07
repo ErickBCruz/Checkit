@@ -21,7 +21,11 @@
             <p class="text-muted mb-4">{{enterprise.address}}</p>
             <div class="d-flex justify-content-center mb-2">
               {% if enterprise_followed %}
-              <button type="button" class="btn btn-primary dsb" style="cursor: not-allowed;">
+              <button
+                type="button"
+                class="btn btn-primary dsb"
+                style="cursor: not-allowed"
+              >
                 <i class="fas fa-plus"></i> Seguiendo
               </button>
               {% else %}
@@ -136,16 +140,28 @@
                 <p class="text-muted mb-0">{{enterprise.address}}</p>
               </div>
             </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Seguidores</p>
+              </div>
+              <div class="col-sm-9">
+                {% if enterprise.followers_count == 0 %}
+                  <p class="text-muted mb-0">Sin seguidores aún</p>
+                {% elif enterprise.followers_count == 1 %}
+                  <p class="text-muted mb-0">{{enterprise.followers_count}} Seguidor</p>
+                {% else %}
+                  <p class="text-muted mb-0">{{enterprise.followers_count}} Seguidores</p>
+                {% endif %}
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6">
             <div class="card mb-4 mb-md-0">
               <div class="card-body">
-                <p class="mb-4">
-                  <span class="text-primary font-italic me-1">assigment</span>
-                  Project Status
-                </p>
+                <p class="mb-4">Estadísticas</p>
                 <p class="mb-1" style="font-size: 0.77rem">Web Design</p>
                 <div class="progress rounded" style="height: 5px">
                   <div
@@ -288,7 +304,6 @@
     cursor: not-allowed;
     opacity: 0.5;
   }
-  
 </style>
 
 {% endblock %}

@@ -134,7 +134,7 @@ def repair_enterprises_view(request):
 
 @login_required(login_url="/login")
 def enterprise_detail_view(request, id):
-    enterprise = enterprise_service.get_enterprise_by_id(id)
+    enterprise = enterprise_service.get_detailed_enterprise_by_id(id)
     current_client = client_service.get_client(request.user)
     is_followed = enterprise_service.is_follower(enterprise, current_client)
     

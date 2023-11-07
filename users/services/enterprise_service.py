@@ -16,6 +16,9 @@ class EnterpriseService():
     def get_enterprise_by_id(self, id):
         return Enterprise.objects.get(id=id)
     
+    def get_detailed_enterprise_by_id(self, id):
+        return Enterprise.objects.annotate(followers_count=Count('enterpisefollowers')).get(id=id)
+    
     def is_enterprise(self, user):
         enterprise = Enterprise.objects.filter(user=user).exists()
         return enterprise
