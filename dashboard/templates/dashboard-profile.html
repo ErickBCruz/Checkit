@@ -31,9 +31,13 @@
               <h5>{{ personal_data.user.first_name }} {{ personal_data.user.last_name }}</h5>
               <p class="fst-italic fs-6">{{ personal_data.address }}</p>
             </div>
-            
-            {% endif %}
 
+          
+            {% endif %}
+            
+            <div class="ms-3 fs-1" style="margin-top: 130px">
+              <a href="{% url 'dashboard-logout' %}" class="btn btn-danger">Cerrar sesión</a>
+            </div>
           </div>
           <div class="p-4 text-black" style="background-color: #f8f9fa">
             <div class="d-flex justify-content-end text-center py-1">
