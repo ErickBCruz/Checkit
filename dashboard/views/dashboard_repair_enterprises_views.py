@@ -151,7 +151,6 @@ def enterprise_detail_view(request, id):
     if request.method == "POST":
         if create_maintenance_form.is_valid():
             create_maintenance_form.save()
-            return redirect("dashboard")
     
     if request.method == "GET":
         enterprise_service.increase_views(enterprise)
