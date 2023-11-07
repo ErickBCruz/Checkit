@@ -1,8 +1,41 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+
+{% block title %} CheckIT | Empresa {{enterprise.enterprise_name}} {% endblock %}
+
+
+{% block content %}
 <div class="container container-fluid my-2">
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registro reparación de dispositivo</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{create_maintenance_form.as_p}}
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary" id="guardarBtn">
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                Guardar
+              </button>
+              
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <h4 class="py-2">Información detallada de la Empresa</h4>
   <hr />
-  <button class="btn btn-primary my-4" onclick="window.history.back();">
+  <button class="btn btn-primary my-4" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
     <i class="fas fa-tools"></i> Reparar mi dispositivo en esta empresa
   </button>
   <div class="container py-2">

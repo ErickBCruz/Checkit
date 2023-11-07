@@ -21,3 +21,9 @@ DEVICE_CATEGORIES = [
     ("Otros dispositivos electrónicos", "Otros dispositivos electrónicos"),
 ]
 
+MAINTENANCE_STATUS = [
+    ("1", "Pendiente"),
+    ("2", "En proceso"),
+    ("3", "Finalizado"),
+    ("4", "Cancelado"),
+]
