@@ -17,7 +17,7 @@ enterprise_service = EnterpriseService()
 @login_required(login_url="/login")
 def devices_view(request):
     page_number = request.GET.get("page", 1)
-    PER_PAGE = 2
+    PER_PAGE = 3
 
     is_client = client_service.is_client(request.user)
     devices = None

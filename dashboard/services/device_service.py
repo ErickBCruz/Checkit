@@ -8,13 +8,17 @@ class DeviceService:
         print("DeviceService init... 🚀")
 
     def get_user_devices(self, user):
-        return Device.objects.filter(owner=user).order_by("-created_at")
+        return (
+            Device.objects.filter(owner=user).order_by("-created_at").order_by("status")
+        )
 
     def get_paged_user_devices(self, user, page, per_page):
         devices = self.get_user_devices(user)
-        
+
         for device in devices:
-            status = device.maintenance = MaintenanceService().get_status_from_device(device)
+            status = device.maintenance = MaintenanceService().get_status_from_device(
+                device
+            )
             if not status or status == None:
                 device.status = "-1"
             else:
