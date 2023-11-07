@@ -72,11 +72,14 @@ def repair_enterprises_view(request):
             custom_marker = folium.CustomIcon(profile_image, icon_size=(50, 50))
 
             enterprise_type = "Empresa" if enterprise.type == "1" else "Técnico"
+            
+            follower_count = enterprise.followers_count
 
             tooltip = f""" <strong>{enterprise_type}: {name}</strong> <br>
-            {enterprise.address}
+            {enterprise.address} <br>
             """
-
+            
+                
             popup_content = f"""
             <section>
                 <div class="container p-1 h-100">
@@ -89,6 +92,7 @@ def repair_enterprises_view(request):
                         </div>
                         <div class="col-12 text-center">
                             <h5>{name}</h5>
+                            <p>{follower_count} seguidores</p>  
                             <p>{enterprise_type}</p>
                             <p>{enterprise.address}</p>
                             <p>{enterprise.phone}</p>

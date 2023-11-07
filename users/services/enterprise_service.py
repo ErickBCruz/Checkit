@@ -1,6 +1,7 @@
 from users.models import Enterprise
 from users.models import EnterpiseFollowers
 from users.models import EnterpriseViews
+from django.db.models import Count
 
 class EnterpriseService():
     def __init__(self):
@@ -35,3 +36,7 @@ class EnterpriseService():
     def is_follower(self, enterprise, client):
         follower = EnterpiseFollowers.objects.filter(enterprise=enterprise, client=client).exists()
         return follower
+    
+    def get_enterprises_with_follower_count(self):
+        enterprises = Enterprise.objects.annotate(followers_count=Count('enterpisefollowers'))
+        return enterprises

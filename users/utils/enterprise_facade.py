@@ -4,7 +4,7 @@ class EnterpriseFacade:
         self.enterprise_service = enterprise_service
 
     def get_nearby_enterprises(self, lat, lng, target=1000):
-        all_enterprises = self.enterprise_service.get_enterprises()
+        all_enterprises = self.enterprise_service.get_enterprises_with_follower_count()
         near_enterprises = []
 
         for enterprise in all_enterprises:
