@@ -1,9 +1,9 @@
 from dashboard.models import DeviceMaintenance, Device, Client, Enterprise
 from django import forms
-from dashboard.constants.device_constants import DEVICE_CATEGORIES, MAINTENANCE_STATUS
 
 
 from django.forms.widgets import Select
+from django.db.models import Q
 
 
 class DeviceImageWidget(Select):
@@ -74,11 +74,24 @@ class CreateDeviceMaintenance(forms.ModelForm):
             ),
         )
 
+    """_summary_
+    Constructor de la clase CreateDeviceMaintenance
+    _description_
+    Recibe los parámetros:
+    - client: Cliente que solicita el mantenimiento
+    - enterprise: Empresa a la que se le solicita el mantenimiento
+    - ticket: Número de ticket del mantenimiento
+    """
     def __init__(self, client, enterprise, ticket, *args, **kwargs):
         super(CreateDeviceMaintenance, self).__init__(*args, **kwargs)
-        self.fields["device"].queryset = Device.objects.filter(
-            owner=client, status=True
-        )
+        filtered_devices = Device.objects.filter(
+            Q(devicemaintenance__isnull=True)
+            | ~Q(devicemaintenance__status__in=["1", "2", "3"]),
+            owner=client,
+            status=True,
+        )  # Filtra los dispositivos que no tienen mantenimiento o que tienen un mantenimiento en estado 1, 2 o 3
+
+        self.fields["device"].queryset = filtered_devices
         self.fields["device"].empty_label = "Selecciona un dispositivo"
         self.fields["device"].label = "Dispositivo"
         self.fields["device"].widget.attrs.update(
