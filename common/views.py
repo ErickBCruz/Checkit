@@ -88,7 +88,6 @@ def index(request):
     
     if request.method == "POST":
         ticket = maintenance_service.get_mainenance_status_by_ticket(request.POST.get("ticket"))
-        messages.success(request, "Ticket de mantenimiento creado correctamente")
     
     context = {
         "map": m._repr_html_(),
