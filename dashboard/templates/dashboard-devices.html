@@ -33,6 +33,81 @@
     </div>
   </div>
   
+
+  {% if not is_client %}
+  <table class="table table-striped">
+    
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Imagen</th>
+        <th scope="col">Dispositivo</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Fecha de adquisición</th>
+        <th scope="col">Fecha Registro</th>
+        <th scope="col">Razón</th>
+        <th scope="col">Acción</th>
+      </tr>
+    </thead>
+    {% if devices|length > 0 %}
+    <tbody class="align-middle">
+      {% for maintenance in devices %}
+      <tr>
+        <th scope="row">{{ maintenance.device.id }}</th>
+        <td>
+          <img
+            class="rounded-3"
+            src="{{ maintenance.device.picture.url }}"
+            alt="{{ maintenance.device.device.name }}"
+            width="90"
+            draggable="false"
+          />
+        </td>
+        <td>{{ maintenance.device.name }}</td>
+        <td>
+          {% if maintenance.status == "1" %}
+          <span class="badge bg-warning text-dark">En espera</span>
+          {% elif maintenance.status == "2" %}
+          <span class="badge bg-info text-dark">En proceso</span>
+          {% elif maintenance.status == "3" %}
+          <span class="badge bg-success text-dark">Finalizado</span>
+          {% else %}
+          <span class="badge bg-danger text-dark">Cancelado</span>
+          {% endif %}
+        </td>
+        <td>
+            <p class="m-0 ms-2">{{ maintenance.device.brand.name }}</p>
+        </td>
+        <td>
+          {% if maintenance.adquisition_date %}
+            {{ maintenance.adquisition_date|date:"d-m-Y" }}
+            {% else %}
+            No especificado
+          {% endif %}
+        </td>
+        <td>{{ maintenance.created_at|naturaltime  }}</td>
+        <td>{{ maintenance.reason }}</td>
+        <td>
+          <div class="btn-group w-25" role="group" aria-label="Basic example">
+            <a class="btn btn-primary"> <i class="fas fa-edit"></i></a>
+            <a class="btn btn-danger"> <i class="fas fa-remove"></i></a>
+            <a class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#exampleModal" id="device-details"> <i class="fas fa-eye"></i></a>
+          </div>
+        </td>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+    {% else %}
+    <tbody>
+      <tr>
+        <td colspan="4">No hay dispositivos registrados</td>
+      </tr>
+    </tbody>
+    {% endif %}
+  </table>
+  {% else %}
   <table class="table table-striped">
     <thead>
       <tr>
@@ -43,6 +118,7 @@
         <th scope="col">Marca</th>
         <th scope="col">Fecha de adquisición</th>
         <th scope="col">Fecha Registro</th>
+        <th scope="col">Estado de mantenimiento</th>
         <th scope="col">Acción</th>
       </tr>
     </thead>
@@ -74,6 +150,19 @@
         </td>
         <td>{{ device.created_at|naturaltime  }}</td>
         <td>
+          {% if device.status == "1" %}
+          <span class="badge bg-warning text-dark">En espera</span>
+          {% elif device.status == "2" %}
+          <span class="badge bg-info text-dark">En proceso</span>
+          {% elif device.status == "3" %}
+          <span class="badge bg-success text-dark">Finalizado</span>
+          {% elif device.status == "4" %}
+          <span class="badge bg-danger text-dark">Cancelado</span>
+          {% else %}
+          <span class="badge bg-secondary text-dark">No registrado</span>
+          {% endif %}
+        </td>
+        <td>
           <div class="btn-group w-25" role="group" aria-label="Basic example">
             <a class="btn btn-primary"> <i class="fas fa-edit"></i></a>
             <a class="btn btn-danger"> <i class="fas fa-remove"></i></a>
@@ -92,6 +181,7 @@
     </tbody>
     {% endif %}
   </table>
+  {% endif %}
   <div class="pagination w-100 rounded-3 p-2">
     <span class="step-links">
         {% if devices.has_previous %}
