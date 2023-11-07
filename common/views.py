@@ -7,12 +7,14 @@ from users.utils.enterprise_facade import EnterpriseFacade
 
 from common.services.common_service import CommonService
 from users.services.enterprise_service import EnterpriseService
+from dashboard.services.maintenance_service import MaintenanceService
 
 import folium
 
 
 common_service = CommonService()
 enterprise_service = EnterpriseService()
+maintenance_service = MaintenanceService()
 default_latitude = common_service.default_latitude
 default_longitude = common_service.default_longitude
 
@@ -81,12 +83,19 @@ def index(request):
                 ),
                 icon=custom_marker,
             ).add_to(m)
-
+            
+    ticket = None
+    
+    if request.method == "POST":
+        ticket = maintenance_service.get_mainenance_status_by_ticket(request.POST.get("ticket"))
+        messages.success(request, "Ticket de mantenimiento creado correctamente")
+    
     context = {
         "map": m._repr_html_(),
         "distance": int(distance / 1000),
         "near_enterprises_count": near_ent_count,
         "near_technicians_count": near_techn_count,
+        "ticket": ticket,
     }
     return render(request, "index.html", context)
 

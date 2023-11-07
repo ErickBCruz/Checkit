@@ -12,7 +12,7 @@
     {%block content %}
     <div class="container p-4">
       <div class="d-flex flex-row justify-content-between align-items-center">
-        <div class="container pt-5">
+        <div class="container pt-5 mb-10">
           <h1 class="display-3 fw-bolder">
             <span>Conectando</span> <br />
             <span style="color: #b60636" id="typed-element">Empresas</span>
@@ -26,7 +26,6 @@
             <a href="{% url "register-enterprise" %}" class="btn btn-danger me-4">Soy empresa/técnico</a>
             <a href="{% url "register-client" %}" class="btn btn-secondary">Reparar mi dispositivo</a>
           </div>
-          
         </div>
 
         <img
@@ -35,6 +34,72 @@
           width="50%"
           draggable="false"
         />
+      </div>
+
+      <div class="mb-14 mt-5">
+        <h3>Ingresar ticket de reparación</h3>
+        <p class="lead mt-3 fs-6">
+          Si ya tienes un ticket de reparación, puedes ingresar el código aquí
+          para ver el estado de tu reparación.
+        </p>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control rounded-2"
+              placeholder="Código de ticket"
+              aria-label="Código de ticket"
+              aria-describedby="button-addon2"
+              name="ticket"
+              value="{{ ticket.ticket| default:"" }}"
+              required
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="submit"
+              id="button-addon2"
+            >
+              Buscar
+            </button>
+          </div>
+          {% if ticket %}
+          <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Estado de tu reparación</h4>
+            <p>
+              El estado de tu reparación se encuentra <strong>
+                {% if ticket.status == "1" %}
+                Pendiente por confirmar 🤔
+                {% elif ticket.status == "2" %}
+                En reparación 🛠️
+                {% elif ticket.status == "3" %}
+                Finalizado ✅
+                {% else %}
+                Cancelado ❌
+                {% endif %}
+              </strong>
+            </p>
+            <p class="mb-0">
+              <strong>Dispositivo:</strong> {{ ticket.device.name }}
+            </p>
+            <p class="mb-0">
+              <strong>Razón de mantenimiento:</strong> {{ ticket.reason }}
+            </p>
+            <p class="mb-0">
+              <strong>Empresa de reparación:</strong> {{ ticket.enterprise.enterprise_name }}
+            </p>
+            <hr />
+            <p class="mb-0">
+              <strong>Fecha de creación:</strong> {{ ticket.created_at }}
+            </p>
+            {% if ticket.status == "En reparación" %}
+            <p class="mb-0">
+              <strong>Fecha estimada de finalización:</strong>
+              {{ ticket.deadline }}
+            </p>
+            {% endif %}
+          </div>
+          {% endif %}
       </div>
 
       <div class="mt-5">
