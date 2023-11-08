@@ -11,6 +11,9 @@ class DeviceService:
         return (
             Device.objects.filter(owner=user).order_by("-created_at").order_by("status")
         )
+        
+    def get_device(self, device_id):
+        return Device.objects.get(id=device_id)
 
     def get_paged_user_devices(self, user, page, per_page):
         devices = self.get_user_devices(user)

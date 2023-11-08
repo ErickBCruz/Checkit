@@ -21,4 +21,9 @@ urlpatterns = [
         dashboard_repair_enterprises_views.enterprise_detail_view,
         name="dashboard-enterprise-detail",
     ),
+    path(
+        "confirm-device/<int:device_id>",
+        dashboard_devices_views.confirm_device_view,
+        name="dashboard-confirm-device-repair",
+    ),
 ]

@@ -1,7 +1,7 @@
 import uuid
 from dashboard.models import DeviceMaintenance
 from django.core.paginator import Paginator
-
+from dashboard.constants.device_constants import MAINTENANCE_STATUS
 
 class MaintenanceService:
     def __init__(self) -> None:
@@ -27,4 +27,8 @@ class MaintenanceService:
         devices = self.get_maintenance_enterprise_devices(enterprise)
         paginator = Paginator(devices, per_page)
         return paginator.get_page(page)
-        
+    
+    def confirm_maintenance(self, device):
+        maintenance = DeviceMaintenance.objects.filter(device=device).first()
+        maintenance.status = MAINTENANCE_STATUS[1][0]
+        maintenance.save()

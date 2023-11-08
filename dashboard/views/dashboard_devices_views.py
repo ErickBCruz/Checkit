@@ -51,3 +51,10 @@ def devices_view(request):
     }
 
     return render(request, "dashboard-devices.html", context)
+
+@login_required(login_url="/login")
+def confirm_device_view(request, device_id):
+    print(device_id)
+    device = device_service.get_device(device_id)
+    maintenance_service.confirm_maintenance(device)
+    return redirect("dashboard-devices")
