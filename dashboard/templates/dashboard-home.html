@@ -1,7 +1,198 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %} {% include "./partials/_dashboard-navbar.html" %}
+<main role="main">
+  <!-- Carousel wrapper -->
+  <div
+    id="carouselBasicExample"
+    class="carousel slide carousel-fade"
+    data-mdb-ride="carousel"
+  >
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-mdb-target="#carouselBasicExample"
+        data-mdb-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-mdb-target="#carouselBasicExample"
+        data-mdb-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-mdb-target="#carouselBasicExample"
+        data-mdb-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+    </div>
 
-{% block content %}
-    {% include "./partials/_dashboard-navbar.html" %}
-    <h1>Home</h1>
-    <p> Bienvenido {{user.first_name}} {{user.last_name}}!
+    <!-- Inner -->
+    <div class="carousel-inner">
+      <!-- Single item -->
+      <div class="carousel-item active">
+        <img
+          src="https://images.unsplash.com/photo-1620368523823-44cc31261384?q=80&w=999&h=441&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          class="d-block w-100"
+          alt="Sunset Over the City"
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Empresas y técnicos de reparación a tu alcance</h5>
+          <p>CheckIT provee una solución para tus problemas tecnológicos</p>
+        </div>
+      </div>
+
+      <!-- Single item -->
+      <div class="carousel-item">
+        <img
+          src="https://images.unsplash.com/photo-1581244249923-172ef5029576?q=80&w=999&h=441&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          class="d-block w-100"
+          alt="Canyon at Nigh"
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Second slide label</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+
+      <!-- Single item -->
+      <div class="carousel-item">
+        <img
+          src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?q=80&w=999&h=441&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          class="d-block w-100"
+          alt="Cliff Above a Stormy Sea"
+        />
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Inner -->
+
+    <!-- Controls -->
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-mdb-target="#carouselBasicExample"
+      data-mdb-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-mdb-target="#carouselBasicExample"
+      data-mdb-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <!-- Carousel wrapper -->
+
+  <!-- Marketing messaging and featurettes
+        ================================================== -->
+  <!-- Wrap the rest of the page in another container to center all the content. -->
+
+  <div class="container marketing mt-5">
+
+    <hr class="featurette-divider" />
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">
+          First featurette heading.
+          <span class="text-muted">It'll blow your mind.</span>
+        </h2>
+        <p class="lead">
+          Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id
+          ligula porta felis euismod semper. Praesent commodo cursus magna, vel
+          scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+        </p>
+      </div>
+      <div class="col-md-5">
+        <img
+          class="featurette-image img-fluid mx-auto"
+          data-src="holder.js/500x500/auto"
+          alt="500x500"
+          style="width: 500px; height: 500px"
+          src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22500%22%20height%3D%22500%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18bac347705%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A25pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18bac347705%22%3E%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22185.125%22%20y%3D%22261.2800006866455%22%3E500x500%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+          data-holder-rendered="true"
+        />
+      </div>
+    </div>
+
+    <hr class="featurette-divider" />
+
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">
+          Oh yeah, it's that good.
+          <span class="text-muted">See for yourself.</span>
+        </h2>
+        <p class="lead">
+          Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id
+          ligula porta felis euismod semper. Praesent commodo cursus magna, vel
+          scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+        </p>
+      </div>
+      <div class="col-md-5 order-md-1">
+        <img
+          class="featurette-image img-fluid mx-auto"
+          data-src="holder.js/500x500/auto"
+          alt="500x500"
+          style="width: 500px; height: 500px"
+          src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22500%22%20height%3D%22500%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18bac347706%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A25pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18bac347706%22%3E%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22185.125%22%20y%3D%22261.2800006866455%22%3E500x500%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+          data-holder-rendered="true"
+        />
+      </div>
+    </div>
+
+    <hr class="featurette-divider" />
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">
+          And lastly, this one. <span class="text-muted">Checkmate.</span>
+        </h2>
+        <p class="lead">
+          Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id
+          ligula porta felis euismod semper. Praesent commodo cursus magna, vel
+          scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+        </p>
+      </div>
+      <div class="col-md-5">
+        <img
+          class="featurette-image img-fluid mx-auto"
+          data-src="holder.js/500x500/auto"
+          alt="500x500"
+          style="width: 500px; height: 500px"
+          src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22500%22%20height%3D%22500%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20500%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_18bac347707%20text%20%7B%20fill%3A%23AAAAAA%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A25pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_18bac347707%22%3E%3Crect%20width%3D%22500%22%20height%3D%22500%22%20fill%3D%22%23EEEEEE%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22185.125%22%20y%3D%22261.2800006866455%22%3E500x500%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+          data-holder-rendered="true"
+        />
+      </div>
+    </div>
+
+    <hr class="featurette-divider" />
+
+    <!-- /END THE FEATURETTES -->
+  </div>
+  <!-- /.container -->
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <p class="float-right"><a href="#">Back to top</a></p>
+    <p>
+      © 2017-2018 Company, Inc. · <a href="#">Privacy</a> ·
+      <a href="#">Terms</a>
+    </p>
+  </footer>
+</main>
 {% endblock %}
