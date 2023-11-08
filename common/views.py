@@ -87,7 +87,10 @@ def index(request):
     ticket = None
     
     if request.method == "POST":
-        ticket = maintenance_service.get_mainenance_status_by_ticket(request.POST.get("ticket"))
+        try:
+            ticket = maintenance_service.get_mainenance_status_by_ticket(request.POST.get("ticket"))
+        except Exception as e:
+            messages.error(request, "Ticket no encontrado")
     
     context = {
         "map": m._repr_html_(),
