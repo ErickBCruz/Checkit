@@ -36,7 +36,7 @@
         />
       </div>
 
-      <div class="mb-14 mt-5">
+      <div class="mb-10 mt-5">
         <h3>Ingresar ticket de reparación</h3>
         <p class="lead mt-3 fs-6">
           Si ya tienes un ticket de reparación, puedes ingresar el código aquí
@@ -101,6 +101,20 @@
           </div>
           {% endif %}
       </div>
+
+      {% if  messages %}
+      {% for message in messages %}
+      <div class="alert alert-error" role="alert">
+        <div class="alert alert-warning" role="alert">
+          <h4 class="alert-heading">Error al ingresar el código</h4>
+          <p>
+            Lo sentimos, no se encontró ningún ticket con el código ingresado.
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    
+      {% endif %}
 
       <div class="mt-5">
         <h3>Filtros de búsqueda de empresas de reparación</h3>

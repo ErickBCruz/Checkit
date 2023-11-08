@@ -90,6 +90,7 @@ def index(request):
         try:
             ticket = maintenance_service.get_mainenance_status_by_ticket(request.POST.get("ticket"))
         except Exception as e:
+            ticket = None
             messages.error(request, "Ticket no encontrado")
     
     context = {
