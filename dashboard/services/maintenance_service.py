@@ -20,7 +20,7 @@ class MaintenanceService:
         return maintenance.status if maintenance else None
 
     def get_maintenance_enterprise_devices(self, enterprise) -> list:
-        devices = DeviceMaintenance.objects.filter(enterprise=enterprise)
+        devices = DeviceMaintenance.objects.filter(enterprise=enterprise).order_by("status")
         return devices
     
     def get_paged_maintenance_enterprise_devices(self, enterprise, page, per_page):
