@@ -55,7 +55,6 @@ def devices_view(request):
 
 @login_required(login_url="/login")
 def confirm_device_view(request, device_id):
-    print(device_id)
     device = device_service.get_device(device_id)
     maintenance_service.confirm_maintenance(device)
     return redirect("dashboard-devices")
@@ -69,4 +68,13 @@ def maintenance_view(request, ticket):
         request,
         "dashboard-maintenance-detail.html",
         {"maintenance": maintenance, "openai_api_key": api_key},
+    )
+
+@login_required(login_url="/login")
+def maintenance_management_view(request, ticket):
+    maintenance = maintenance_service.get_maintenance_by_ticket(ticket)
+    return render(
+        request,
+        "dashboard-maintenance-management.html",
+        {"maintenance": maintenance},
     )
