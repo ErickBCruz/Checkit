@@ -30,5 +30,10 @@ urlpatterns = [
         "maintenance/<str:ticket>",
         dashboard_devices_views.maintenance_view,
         name="dashboard-maintenance-detail",
-    )
+    ),
+    path(
+        "maintenance-managment/<str:ticket>",
+        dashboard_devices_views.maintenance_management_view,
+        name="dashboard-maintenance-management"
+    ),
 ]

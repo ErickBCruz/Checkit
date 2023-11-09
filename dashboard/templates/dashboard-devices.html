@@ -128,15 +128,20 @@
             id="device-details"> <i class="fas fa-check"></i></a>
 
             {% else %}
-            <a class="btn btn-warning disabled" aria-disabled="true"> <i class="fas fa-check"></i></a>
+            <a class="btn btn-warning dsb" > <i class="fas fa-check"></i></a>
             {% endif %}
 
-            
             <a class="btn btn-primary"> <i class="fas fa-edit"></i></a>
-
             <a class="btn btn-danger"> <i class="fas fa-remove"></i></a>
 
-            <a class="btn btn-info"> <i class="fas fa-tools"></i></a>
+            {% if  maintenance.status != "1" %}
+              <a class="btn btn-info"
+              href="{% url 'dashboard-maintenance-management' maintenance.ticket %}"
+              target="_blank"
+              > <i class="fas fa-tools"></i></a>
+            {% else %}
+              <a class="btn btn-info dsb" aria-disabled="true"> <i class="fas fa-tools"></i></a>
+            {% endif %}
 
           </div>
         </td>
@@ -272,10 +277,9 @@
     align-items: center;
 }
 
-.disabled {
-    pointer-events: none;
-    cursor: default;
-    opacity: 0.2;
+.dsb {
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 </style>
 
