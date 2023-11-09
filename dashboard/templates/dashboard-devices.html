@@ -71,6 +71,7 @@
         <th scope="col">Ticket</th>
         <th scope="col">Marca</th>
         <th scope="col">Fecha de adquisición</th>
+        <th scope="col">Fecha Entrega</th>
         <th scope="col">Fecha Registro</th>
         <th scope="col">Acción</th>
       </tr>
@@ -114,6 +115,13 @@
             No especificado
           {% endif %}
         </td>
+        <td>
+          {% if maintenance.deadline %}
+            {{ maintenance.deadline|date:"d-m-Y" }}
+            {% else %}
+            <span class="badge bg-secondary text-dark">No especificado</span>
+          {% endif %}
+        </td>
         <td>{{ maintenance.created_at|naturaltime  }}</td>
         <td>
           <div class="btn-group w-25" role="group" aria-label="Basic example">
@@ -131,7 +139,6 @@
             <a class="btn btn-warning dsb" > <i class="fas fa-check"></i></a>
             {% endif %}
 
-            <a class="btn btn-primary"> <i class="fas fa-edit"></i></a>
             <a class="btn btn-danger"> <i class="fas fa-remove"></i></a>
 
             {% if  maintenance.status != "1" %}
