@@ -15,6 +15,10 @@ class MaintenanceService:
         maintenance = DeviceMaintenance.objects.get(ticket=ticket)
         return maintenance
     
+    def get_maintenance_by_ticket(self, ticket: str) -> str:
+        maintenance = DeviceMaintenance.objects.get(ticket=ticket)
+        return maintenance
+    
     def get_status_from_device(self, device) -> str:
         maintenance = DeviceMaintenance.objects.filter(device=device).first()
         return maintenance.status if maintenance else None

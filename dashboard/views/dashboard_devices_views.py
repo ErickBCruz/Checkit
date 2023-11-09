@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+import os
+
 from dashboard.forms.device.create_divice_form import CreateDeviceForm
 
 from dashboard.services.device_service import DeviceService
@@ -38,11 +40,9 @@ def devices_view(request):
                 return redirect("dashboard-devices")
     else:
         enterprise = enterprise_service.get_enterprise_by_user(request.user)
-        devices = (
-            maintenance_service.get_paged_maintenance_enterprise_devices(
-                enterprise, page_number, PER_PAGE
-            )
-        )    
+        devices = maintenance_service.get_paged_maintenance_enterprise_devices(
+            enterprise, page_number, PER_PAGE
+        )
 
     context = {
         "devices": devices,
@@ -52,9 +52,21 @@ def devices_view(request):
 
     return render(request, "dashboard-devices.html", context)
 
+
 @login_required(login_url="/login")
 def confirm_device_view(request, device_id):
     print(device_id)
     device = device_service.get_device(device_id)
     maintenance_service.confirm_maintenance(device)
     return redirect("dashboard-devices")
+
+
+@login_required(login_url="/login")
+def maintenance_view(request, ticket):
+    api_key = os.environ.get("OPENAI_API_KEY")
+    maintenance = maintenance_service.get_maintenance_by_ticket(ticket)
+    return render(
+        request,
+        "dashboard-maintenance-detail.html",
+        {"maintenance": maintenance, "openai_api_key": api_key},
+    )

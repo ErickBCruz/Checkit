@@ -26,4 +26,9 @@ urlpatterns = [
         dashboard_devices_views.confirm_device_view,
         name="dashboard-confirm-device-repair",
     ),
+    path(
+        "maintenance/<str:ticket>",
+        dashboard_devices_views.maintenance_view,
+        name="dashboard-maintenance-detail",
+    )
 ]

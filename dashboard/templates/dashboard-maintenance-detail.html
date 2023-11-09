@@ -1,0 +1,138 @@
+{% extends 'base.html' %} 
+<title> {% block title %} CheckIt | Dispositivo {{ maintenance.device.name }} {% endblock %} </title> 
+
+{% block content %} {% include "./partials/_dashboard-navbar.html" %}
+
+<!--Confirm device repair modal-->
+<div class="modal fade" id="ia-suggetion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Suegerencia de reparación generada por IA</h5>
+          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p id="ia-suggestion-text">Aquí se mostrará la sugerencia generada por IA.</p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Cerrar</button> 
+            </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+
+
+<div class="container">
+    <main class="mt-3 pt-4">
+        <h3 class="text-center">Dispositivo: {{ maintenance.device.name}}</h3>
+        <div class="container mt-5">
+            <!--Grid row-->
+            <div class="row">
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+                    <img src="{{maintenance.device.picture.url}}" class="img-fluid rounded" alt="{{maintenance.device.name}}" />
+                </div>
+                <!--Grid column-->
+    
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+                    <!--Content-->
+                    <div class="p-4">
+                    <strong><p style="font-size: 20px;">Estado de la reparación</p></strong>
+                        <div class="mb-3">
+                            {% if maintenance.status == "1" %}
+                            <span class="badge bg-warning text-dark">En espera</span>
+                            {% elif maintenance.status == "2" %}
+                            <span class="badge bg-info text-dark">En proceso</span>
+                            {% elif maintenance.status == "3" %}
+                            <span class="badge bg-success text-dark">Finalizado</span>
+                            {% else %}
+                            <span class="badge bg-danger text-dark">Cancelado</span>
+                            {% endif %}
+                        </div>
+
+    
+                        <strong><p style="font-size: 20px;">Razón de la falla</p></strong>
+    
+                        <p>{{maintenance.reason}}</p>
+
+                        <strong><p style="font-size: 20px;">¿Necesitas ayuda?</p></strong>
+
+                        <button type="button" class="btn btn-primary" id="ia-support-btn">
+                            <i class="fa-solid fa-brain mx-2" style="color: #ffffff;"></i>
+                            Soporte IA
+                        </button>                           
+    
+                    </div>
+                    <!--Content-->
+                </div>
+                <!--Grid column-->
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<script>
+
+    const iaSupportBtn = document.getElementById('ia-support-btn');
+
+    function openSuggestionModal() {
+        const modal = new mdb.Modal(document.getElementById('ia-suggetion'));
+        modal.show();
+    }
+
+    function setGeneatingSuggestionState() {
+        const spinner = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+        iaSupportBtn.innerHTML = spinner + ' Generando sugerencia con IA...';
+        iaSupportBtn.setAttribute('disabled', 'true');
+    }
+
+    function setSuggestionGeneratedState() {
+        iaSupportBtn.innerHTML = '<i class="fa-solid fa-brain mx-2" style="color: #ffffff;"></i>Soporte IA';
+        iaSupportBtn.removeAttribute('disabled');
+    }
+      
+    function getSuggestionFromChatGPT() {
+        const openaiApiKey = "{{ openai_api_key }}";
+        const reason = "{{ maintenance.reason }}";
+        const deviceName = "{{ maintenance.device.name }}";
+        const deviceBrand = "{{ maintenance.device.brand }}";
+        const deviceAdquisitionDate = "{{ maintenance.device.adquisition_date }}";
+
+        const prompt = `Actúa como un técnico de reparación. Proporcione un listado
+        de posible soluciones detalladas para el siguiente problema: ${reason}.
+        Ten en cuenta que el dispositivo es un ${deviceName} de la marca ${deviceBrand} 
+        y fue adquirido el ${deviceAdquisitionDate}.
+        La respuesta va orientada a una empresa o persona que se dedica a la reparación de dispositivos electrónicos.
+        Usa un lenguaje técnico y profesional.
+        Dame el listado en formato HTML como lista desordenada.`;
+
+        fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${openaiApiKey}`
+            },
+            body: JSON.stringify({
+                prompt,
+                max_tokens: 1000,
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const suggestion = data.choices[0].text;
+            document.getElementById('ia-suggestion-text').innerHTML = suggestion;
+            openSuggestionModal();
+        })
+        .catch(error => console.error(error))
+        .finally(() => setSuggestionGeneratedState());
+    }
+
+    document.getElementById('ia-support-btn').addEventListener('click', function(){
+        setGeneatingSuggestionState();
+        getSuggestionFromChatGPT();
+    });
+</script>
+
+{% endblock %}
