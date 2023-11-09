@@ -1,8 +1,14 @@
 {% extends 'base.html' %} 
-<title> {% block title %} CheckIt | Dispositivo {{ maintenance.device.name }} {% endblock %} </title> 
+<title> {% block title %} CheckIt | Gestión de mantenimiento de {{ maintenance.device.name }} {% endblock %} </title> 
 
 {% block content %} {% include "./partials/_dashboard-navbar.html" %}
 
-
+<div class="container w-75">
+    <form method="POST" class="form-group mt-5 mb-5">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
 
 {% endblock %}

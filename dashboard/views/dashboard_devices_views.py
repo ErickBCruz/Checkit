@@ -4,6 +4,9 @@ from django.contrib.auth.decorators import login_required
 import os
 
 from dashboard.forms.device.create_divice_form import CreateDeviceForm
+from dashboard.forms.maintenance.update_maintenante_form import (
+    UpdateDeviceMaintenanceForm,
+)
 
 from dashboard.services.device_service import DeviceService
 from dashboard.services.maintenance_service import MaintenanceService
@@ -70,11 +73,24 @@ def maintenance_view(request, ticket):
         {"maintenance": maintenance, "openai_api_key": api_key},
     )
 
+
 @login_required(login_url="/login")
 def maintenance_management_view(request, ticket):
     maintenance = maintenance_service.get_maintenance_by_ticket(ticket)
+    if request.method == "POST":
+        form = UpdateDeviceMaintenanceForm(
+            maintenance,
+            request.POST,
+        )
+        if form.is_valid():
+            maintenance_service.update_maintenance(maintenance, form.cleaned_data)
+            print("valido")
+    else:
+        form = UpdateDeviceMaintenanceForm(maintenance)
+        
     return render(
         request,
         "dashboard-maintenance-management.html",
-        {"maintenance": maintenance},
+        {"maintenance": maintenance, "form": form},
     )
+    

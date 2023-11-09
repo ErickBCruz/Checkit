@@ -15,6 +15,12 @@ class MaintenanceService:
         maintenance = DeviceMaintenance.objects.get(ticket=ticket)
         return maintenance
     
+    def update_maintenance(self, maintenance, data):
+        maintenance.technician_feedback = data["technician_feedback"]
+        maintenance.deadline = data["deadline"]
+        maintenance.status = data["status"]
+        maintenance.save()
+    
     def get_maintenance_by_ticket(self, ticket: str) -> str:
         maintenance = DeviceMaintenance.objects.get(ticket=ticket)
         return maintenance
