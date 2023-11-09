@@ -6,16 +6,6 @@ from django.forms.widgets import Select
 from django.db.models import Q
 
 
-class DeviceImageWidget(Select):
-    def render_option(self, selected_choices, option_value, option_label):
-        # Obtén el objeto Device asociado al option_value
-        device = Device.objects.get(pk=option_value)
-        # Crea un elemento <img> con la URL de la imagen del dispositivo como atributo src
-        image_html = (
-            f'<img src="{device.image.url}" width="50" height="50" alt="{device.name}">'
-        )
-        # Devuelve la opción renderizada con la imagen
-        return f'<option value="{option_value}"{" selected" if option_value in selected_choices else ""}>{image_html} {option_label}</option>'
 
 
 class CreateDeviceMaintenance(forms.ModelForm):
